@@ -21,38 +21,37 @@
 						<ul>
 							<li><label for="company">Company: </label><input type="text" id="company" name="customer" required aria-required="true" placeholder="Company Name"/></li>
 							<li><label for="address">Address: </label><input type="text" id="address" name="address" required aria-required="true" placeholder="123 Test Blvd."/></li>
-							<ul>	
-								<li><label for="city">City: </label><input type="text" id="city" name="city" required aria-required="true" placeholder="Huntsville"/></li>
-								<li><label for="state">State: </label><input type="text" id="state" name="state" required aria-required="true" placeholder="Alabama"/></li>
-								<li><label for="zipcode">Zip Code: </label><input type="text" id="zipcode" name="zipcode" required aria-required="true" placeholder="xxxxx"/></li>
-							</ul>
+							<li><label for="city">City: </label><input type="text" id="city" name="city" required aria-required="true" placeholder="Huntsville"/></li>
+							<li><label for="state">State: </label><input type="text" id="state" name="state" required aria-required="true" placeholder="Alabama"/></li>
+							<li><label for="zipcode">Zip Code: </label><input type="text" id="zipcode" name="zipcode" required aria-required="true" placeholder="xxxxx"/></li>
 							<li><label for="phone">Phone: </label><input type="tel" id="phone" name="phone" required aria-required="true" placeholder="xxx-xxx-xxxx"/></li>
 							<li><label for="email">Email: </label><input type="email" id="email" name="email" required aria-required="true" placeholder="abd@abc.com"/></li>
 						</ul>
 					</li>
-					<li><label for="orderdate">Order Date: </label><input type="date" min="2012-08-30" max="2015-08-30" id="orderdate" name="orderdate" required aria-required="true" placeholder="yyyy-mm-dd"/></li>
-					<li><label for="needbydate">Need By Date: </label><input type="date" id="needbydate" name="needbydate" required aria-required="true" placeholder="yyyy-mm-dd"/></li>
+					<li><label for="orderdate">Order Date: </label><input type="date" min="2012-08-30" max="2015-08-30" id="orderdate" name="orderdate" required aria-required="true" /></li>
+					<li><label for="needbydate">Need By Date: </label><input type="date" id="needbydate" name="needbydate" required aria-required="true"/></li>
 					<li>Rush Order?	
 						<ul>	
 							<li><input type="radio" value="Yes" id="yes" name="rush" /><label for="yes">Yes</label></li>
 							<li><input type="radio" value="No" id="no" name="rush" /><label for="no">No</label></li>
 						</ul>
+					</li>
 				</ul>	
 			</fieldset>	
 			<fieldset>
 				<legend>Job Description</legend>
 				<ul>
-					<li><label for="jobtype">Job Type:</label>
+					<li>Job Type:
 						<select>
 							<optgroup label="Job Type">
-								<option vale="Banner">Banner</option>
-								<option vale="Decal">Decal</option>
-								<option vale="Sign">Sign</option>
-								<option vale="Custom">Custom</option>
+								<option value="Banner">Banner</option>
+								<option value="Decal">Decal</option>
+								<option value="Sign">Sign</option>
+								<option value="Custom">Custom</option>
 							</optgroup>
 						</select>
 					</li>
-					<li><label for="custom">Custom Job Details:</label><textarea id="custom" name="custom"></textarea>
+					<li><label for="custom">Custom Job Details:</label><textarea id="custom" name="custom"></textarea></li>
 					<li><label for="qty">Quantity: </label><input type="number" id="qty" name="qty" required aria-required="true" /></li>
 					<li><label for="production">Est. Production Hours: </label><input type="number" id="production" name="production" required aria-required="true" /></li>
 					<li><label for="design">Est. Design Effort from 1 to 10: </label><input type="range" min="1" max="10" id="design" name="design" /></li>
