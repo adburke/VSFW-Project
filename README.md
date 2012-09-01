@@ -1,4 +1,4 @@
-VSFW-Project-01
+VSFW-Project
 ===============
 
-VSFW-Project-01
+VSFW-Project
