@@ -25,17 +25,45 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 		selectLi.appendChild(makeSelect);
 	}
-	
+	function jobNum(){
+		jobNumCount++;
+		return jobNumCount;
+	}
+	function saveData(){
+		var id = Math.floor(Math.random()*10000001);
+		var jobFormData = {};
+			jobFormData.jobNum		= ["Job Num", $("jobnum").value];
+			jobFormData.company		= ["Company", $("company").value];
+			jobFormData.address		= ["Address", $("address").value];
+			jobFormData.city		= ["City", $("city").value];
+			jobFormData.state		= ["State", $("state").value];
+			jobFormData.zipcode		= ["Zipcode", $("zipcode").value];
+			jobFormData.phone		= ["Phone", $("phone").value];
+			jobFormData.email		= ["Email", $("email").value];
+			jobFormData.oDate		= ["Order Date", $("orderdate").value];
+			jobFormData.needDate	= ["Need Date", $("needbydate").value];
+			jobFormData.rushOrder	= ["Rush Order", $("").value];
+			jobFormData.jobType		= ["Job Type", $("groups").value];
+			jobFormData.customInfo	= ["Custom Info", $("custom").value];
+			jobFormData.quantity	= ["Quantity", $("qty").value];
+			jobFormData.prodHours	= ["Production Hours", $("production").value];
+			jobFormData.designEff	= ["Design Effort", $("design").value];
+
+		localStorage.setItem(id, JSON.stringify(jobFormData));
+		alert("Job Saved");
+	}
+
 	// Variable defaults
 	var jobTypes = ["--Job Types--", "Banner", "Decal", "Sign", "Custom"];
-	
+	var jobNumCount = 1000;
+
 	formLists("jobTypes", jobTypes);
 	
 	// Set Link $ Submit Click Events
-	var displayData = $("displayData");
-	displayData.addEventListener("click", getData);
-	var clearData = $("clearData");
-	clearData.addEventListener("click", clearData);
-	var saveJob = $("submit");
-	saveData.addEventListener("click", saveData);
+	// var displayData = $("displayData");
+	// displayData.addEventListener("click", getData);
+	// var clearData = $("clearData");
+	// clearData.addEventListener("click", clearData);
+	var save = $("submit");
+	save.addEventListener("click", saveData);
 });
