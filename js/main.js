@@ -66,6 +66,20 @@ window.addEventListener("DOMContentLoaded", function(){
 		jobNum();
 		alert("Job Saved");
 	}
+	// Validate that all required form fields at least have a value *no error checking yet*
+	function validation(){
+		var elements = document.getElementsByTagName("input");
+		console.log(elements);
+		for (var i =0, j = elements.length; i < j; i++){
+			if (elements[i].required && elements[i].value === ""){
+				console.log("Required Missing");
+				console.log(elements[i]);
+				alert("Required Fields Missing");
+				return;
+			}
+		}
+		saveData();
+	}
 
 	// Variable defaults
 	var jobTypes = ["--Job Types--", "Banner", "Decal", "Sign", "Custom"];
@@ -75,12 +89,11 @@ window.addEventListener("DOMContentLoaded", function(){
 	formLists("jobTypes", jobTypes);
 	// Gives a value to our readonly Job # field to start with
 	document.forms[0]["jobnum"].value = jobNumCount;
-
 	// Set Link $ Submit Click Events
 	// var displayData = $("displayData");
 	// displayData.addEventListener("click", getData);
 	// var clearData = $("clearData");
 	// clearData.addEventListener("click", clearData);
 	var save = $("submit");
-	save.addEventListener("click", saveData);
+	save.addEventListener("click", validation);
 });
