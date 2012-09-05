@@ -25,14 +25,27 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 		selectLi.appendChild(makeSelect);
 	}
+	// Increment the Job # everytime we save a Job
 	function jobNum(){
 		jobNumCount++;
-		return jobNumCount;
 	}
+	// Check to see what radio button is selected
+	function getSelectedRadio(){
+		var radios = document.forms[0].rush;
+		for (var i =0; i < radios.length; i++){
+			if (radios[i].checked){
+				rushValue = radios[i].value;
+			}
+		}
+	}
+
 	function saveData(){
+		// Random key number for each job object
 		var id = Math.floor(Math.random()*10000001);
+		getSelectedRadio();
+		// Get all of the form data and create an object out of it
 		var jobFormData = {};
-			jobFormData.jobNum		= ["Job Num", $("jobnum").value];
+			jobFormData.jobNum		= ["Job Num", jobNumCount];
 			jobFormData.company		= ["Company", $("company").value];
 			jobFormData.address		= ["Address", $("address").value];
 			jobFormData.city		= ["City", $("city").value];
@@ -42,7 +55,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			jobFormData.email		= ["Email", $("email").value];
 			jobFormData.oDate		= ["Order Date", $("orderdate").value];
 			jobFormData.needDate	= ["Need Date", $("needbydate").value];
-			jobFormData.rushOrder	= ["Rush Order", $("").value];
+			jobFormData.rushOrder	= ["Rush Order", rushValue];
 			jobFormData.jobType		= ["Job Type", $("groups").value];
 			jobFormData.customInfo	= ["Custom Info", $("custom").value];
 			jobFormData.quantity	= ["Quantity", $("qty").value];
@@ -50,15 +63,19 @@ window.addEventListener("DOMContentLoaded", function(){
 			jobFormData.designEff	= ["Design Effort", $("design").value];
 
 		localStorage.setItem(id, JSON.stringify(jobFormData));
+		jobNum();
 		alert("Job Saved");
 	}
 
 	// Variable defaults
 	var jobTypes = ["--Job Types--", "Banner", "Decal", "Sign", "Custom"];
 	var jobNumCount = 1000;
-
+	var rushValue;
+	// Calls the function to create the select box and populates with job types
 	formLists("jobTypes", jobTypes);
-	
+	// Gives a value to our readonly Job # field to start with
+	document.forms[0]["jobnum"].value = jobNumCount;
+
 	// Set Link $ Submit Click Events
 	// var displayData = $("displayData");
 	// displayData.addEventListener("click", getData);
