@@ -68,26 +68,54 @@ window.addEventListener("DOMContentLoaded", function(){
 	}
 
 	function getData(){
+		toggleControl("on");
 		makeDiv = document.createElement("div");
 		makeDiv.setAttribute("id", "items");
 		var makeList = document.createElement("ul");
 		makeDiv.appendChild(makeList);
 		for(var i = 0, j = localStorage.length; i < j; i++){
-			var makeLi = document.createElement("li");
-			makeList.appendChild(makeLi);
-			var key = localStorage.key(i);
-			var value = localStorage.getItem(key);
-			var object = JSON.parse(value);
-			var makeSubList = document.createElement("ul");
-			makeLi.appendChild(makeSubList);
-			for(var x in object){
-				var makeSubLi = document.createElement("li");
-				makeSubList.appendChild(makeSubLi);
-				var objText = object[x][0]+ ": "+object[x][1];
-				makeSubLi.innerHTML = objText;
+			if(Number(localStorage.key(i))/1 === Number(localStorage.key(i))){
+				var makeLi = document.createElement("li");
+				makeList.appendChild(makeLi);
+				var key = localStorage.key(i);
+				var value = localStorage.getItem(key);
+				var object = JSON.parse(value);
+				var makeSubList = document.createElement("ul");
+				makeLi.appendChild(makeSubList);
+				for(var x in object){
+					var makeSubLi = document.createElement("li");
+					makeSubList.appendChild(makeSubLi);
+					var objText = object[x][0]+ ": "+object[x][1];
+					makeSubLi.innerHTML = objText;
+				}
+			} else{
+				console.log("fail");
 			}
 		}
 		document.body.appendChild(makeDiv);
+		$("items").style.display = "block";
+	}
+
+	function toggleControl(state){
+		switch(state){
+			case "on":
+				$("jobForm").style.display = "none";
+				$("clearData").style.display = "inline";
+				$("displayData").style.display = "none";
+				$("newJob").style.display = "inline";
+				break;
+
+			case "off":
+				$("jobForm").style.display = "block";
+				$("clearData").style.display = "inline";
+				$("displayData").style.display = "inline";
+				$("newJob").style.display = "none";
+				$("items").style.display = "none";
+				break;
+
+			default:
+				return false;
+		}
 	}
 	// Validate that all required form fields at least have a value *no error checking yet*
 	function validation(){
@@ -113,7 +141,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	// Gives a value to our readonly Job # field to start with
 	document.forms[0]["jobnum"].value = jobNumCount;
 	// Set Link $ Submit Click Events
-	// var displayData = $("displayData");
+	var displayData = $("displayData");
 	displayData.addEventListener("click", getData);
 	// var clearData = $("clearData");
 	// clearData.addEventListener("click", clearData);

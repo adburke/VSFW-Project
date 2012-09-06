@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<h1>Job Order Form</h1>
-		<form action="#" method="post">
+		<form action="#" method="post" id="jobForm">
 			<fieldset>
 				<legend>Order Info</legend>
 				<ul>
@@ -53,10 +53,11 @@
 					<li><input type="hidden" value="true" /></li>
 				</ul>
 			</fieldset>
-			<input type="submit" value="Save Job" id="submit" />
-			<a href="#" id="clearData">Clear Data</a>
-			<a href="#" id="displayData">Display Data</a>
+			<input type="submit" value="Save Job" id="submit" />	
 		</form>
+		<a href="#" id="clearData">Clear Data</a>
+		<a href="#" id="displayData">Display Data</a>
+		<a href="additem.html" id="newJob" style="display:none;">New Job</a>
 		<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>
