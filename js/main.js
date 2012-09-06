@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		selectLi.appendChild(makeSelect);
 	}
 	// Increment the Job # everytime we save a Job
-	function jobNum(){
+	function jobAdd(){
 		jobNumCount++;
 	}
 	// Check to see what radio button is selected
@@ -44,7 +44,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		var id = Math.floor(Math.random()*10000001);
 		getSelectedRadio();
 		// Get all of the form data and create an object out of it
-		var jobFormData = {};
+		var jobFormData				= {};
 			jobFormData.jobNum		= ["Job Num", jobNumCount];
 			jobFormData.company		= ["Company", $("company").value];
 			jobFormData.address		= ["Address", $("address").value];
@@ -63,8 +63,31 @@ window.addEventListener("DOMContentLoaded", function(){
 			jobFormData.designEff	= ["Design Effort", $("design").value];
 
 		localStorage.setItem(id, JSON.stringify(jobFormData));
-		jobNum();
 		alert("Job Saved");
+
+	}
+
+	function getData(){
+		makeDiv = document.createElement("div");
+		makeDiv.setAttribute("id", "items");
+		var makeList = document.createElement("ul");
+		makeDiv.appendChild(makeList);
+		for(var i = 0, j = localStorage.length; i < j; i++){
+			var makeLi = document.createElement("li");
+			makeList.appendChild(makeLi);
+			var key = localStorage.key(i);
+			var value = localStorage.getItem(key);
+			var object = JSON.parse(value);
+			var makeSubList = document.createElement("ul");
+			makeLi.appendChild(makeSubList);
+			for(var x in object){
+				var makeSubLi = document.createElement("li");
+				makeSubList.appendChild(makeSubLi);
+				var objText = object[x][0]+ ": "+object[x][1];
+				makeSubLi.innerHTML = objText;
+			}
+		}
+		document.body.appendChild(makeDiv);
 	}
 	// Validate that all required form fields at least have a value *no error checking yet*
 	function validation(){
@@ -83,7 +106,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	// Variable defaults
 	var jobTypes = ["--Job Types--", "Banner", "Decal", "Sign", "Custom"];
-	var jobNumCount = 1000;
+	var jobNumCount = 1;
 	var rushValue;
 	// Calls the function to create the select box and populates with job types
 	formLists("jobTypes", jobTypes);
@@ -91,7 +114,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	document.forms[0]["jobnum"].value = jobNumCount;
 	// Set Link $ Submit Click Events
 	// var displayData = $("displayData");
-	// displayData.addEventListener("click", getData);
+	displayData.addEventListener("click", getData);
 	// var clearData = $("clearData");
 	// clearData.addEventListener("click", clearData);
 	var save = $("submit");
