@@ -1,0 +1,30 @@
+/* 	Activity 2
+	VFW 1208
+ 	Aaron Burke
+*/
+
+
+body {
+	background-color: #eee;	
+	font-family: Helvetica, Arial, sans-serif;
+	color: #333;
+}
+li {
+	list-style: none;
+}
+label{
+	padding-right: 2%;
+	margin-bottom: 10px;
+}
+input{
+	margin-bottom: 15px;
+}
+#order, #descr {
+	margin-left:-20px;
+}
+#radio {
+	display:inline;
+}
+#number input {
+	width: 80px;
+}
