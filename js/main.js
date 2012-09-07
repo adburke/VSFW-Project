@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	function $(selector){
 		var element = document.getElementById(selector);
 		return element;
-	}
+	};
 	
 	// Create select field element and populate with options
 	function formLists(selector, array){
@@ -22,9 +22,9 @@ window.addEventListener("DOMContentLoaded", function(){
 			makeOption.setAttribute("value", opText);
 			makeOption.innerHTML = opText;
 			makeSelect.appendChild(makeOption);
-		}
+		};
 		selectLi.appendChild(makeSelect);
-	}
+	};
 	// Increment or set the Job #
 	function jobCount(){
 		if (localStorage.getItem("jobNumber")){
@@ -34,17 +34,17 @@ window.addEventListener("DOMContentLoaded", function(){
 			jobNumCount = 1000;
 			localStorage.setItem("jobNumber", jobNumCount.toString());
 			document.forms[0]["jobnum"].value = jobNumCount;
-		}
-	}
+		};
+	};
 	// Check to see what radio button is selected
 	function getSelectedRadio(){
 		var radios = document.forms[0].rush;
 		for (var i =0; i < radios.length; i++){
 			if (radios[i].checked){
 				rushValue = radios[i].value;
-			}
-		}
-	}
+			};
+		;}
+	};
 	// Save data to localstorage
 	function saveData(){
 		// Random key number for each job object
@@ -75,13 +75,13 @@ window.addEventListener("DOMContentLoaded", function(){
 		localStorage["jobNumber"] = num.toString();
 		alert("Job #: " + jobNumCount + " Saved");
 
-	}
+	};
 	// Retrieve and display data from localstorage
 	function getData(){
 		if (localStorage.length === 1 && localStorage.getItem("jobNumber")){
 			alert("Local Storage does not contain any jobs.");
 			return;
-		}
+		};
 		toggleControl("on");
 		makeDiv = document.createElement("div");
 		makeDiv.setAttribute("id", "items");
@@ -102,9 +102,9 @@ window.addEventListener("DOMContentLoaded", function(){
 					makeSubList.appendChild(makeSubLi);
 					var objText = object[x][0]+ ": "+object[x][1];
 					makeSubLi.innerHTML = objText;
-				}
-			}
-		}
+				};
+			};
+		};
 		document.body.appendChild(makeDiv);
 		$("items").style.display = "block";
 	}
@@ -113,12 +113,12 @@ window.addEventListener("DOMContentLoaded", function(){
 		if (localStorage.length === 1 && localStorage.getItem("jobNumber")){
 			alert("Local Storage does not contain any jobs.");
 			return;
-		}
+		};
 		localStorage.clear();
 		alert("All jobs deleted from local storage.");
 		jobCount();
 		window.location.reload();
-	}
+	};
 	// Toggle form off and on to show Stored data in its place
 	function toggleControl(state){
 		switch(state){
@@ -139,8 +139,8 @@ window.addEventListener("DOMContentLoaded", function(){
 
 			default:
 				return false;
-		}
-	}
+		};
+	};
 	// Validate that all required form fields at least have a value *no error checking yet*
 	function validation(){
 		var elements = document.getElementsByTagName("input");
@@ -151,10 +151,10 @@ window.addEventListener("DOMContentLoaded", function(){
 				console.log(elements[i]);
 				alert("Required Fields Missing");
 				return;
-			}
-		}
+			};
+		;}
 		saveData();
-	}
+	};
 
 	// Variable defaults
 	var jobTypes = ["--Job Types--", "Banner", "Decal", "Sign", "Custom"];
