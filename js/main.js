@@ -25,9 +25,16 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 		selectLi.appendChild(makeSelect);
 	}
-	// Increment the Job # everytime we save a Job
-	function jobAdd(){
-		jobNumCount++;
+	// Increment or set the Job #
+	function jobCount(){
+		if (localStorage.getItem("jobNumber")){
+			jobNumCount = localStorage["jobNumber"];
+			document.forms[0]["jobnum"].value = Number(jobNumCount);
+		} else {
+			jobNumCount = 1000;
+			localStorage.setItem("jobNumber", jobNumCount.toString());
+			document.forms[0]["jobnum"].value = jobNumCount;
+		}
 	}
 	// Check to see what radio button is selected
 	function getSelectedRadio(){
@@ -38,14 +45,15 @@ window.addEventListener("DOMContentLoaded", function(){
 			}
 		}
 	}
-
+	// Save data to localstorage
 	function saveData(){
 		// Random key number for each job object
-		var id = Math.floor(Math.random()*10000001);
+		var id = jobNumCount;
+		// Get Radio button status
 		getSelectedRadio();
 		// Get all of the form data and create an object out of it
 		var jobFormData				= {};
-			jobFormData.jobNum		= ["Job Num", jobNumCount];
+			jobFormData.jobNum		= ["Job Num", $("jobnum").value];
 			jobFormData.company		= ["Company", $("company").value];
 			jobFormData.address		= ["Address", $("address").value];
 			jobFormData.city		= ["City", $("city").value];
@@ -63,17 +71,24 @@ window.addEventListener("DOMContentLoaded", function(){
 			jobFormData.designEff	= ["Design Effort", $("design").value];
 
 		localStorage.setItem(id, JSON.stringify(jobFormData));
-		alert("Job Saved");
+		var num = Number($("jobnum").value)+1;
+		localStorage["jobNumber"] = num.toString();
+		alert("Job #: " + jobNumCount + " Saved");
 
 	}
-
+	// Retrieve and display data from localstorage
 	function getData(){
+		if (localStorage.length === 1 && localStorage.getItem("jobNumber")){
+			alert("Local Storage does not contain any jobs.");
+			return;
+		}
 		toggleControl("on");
 		makeDiv = document.createElement("div");
 		makeDiv.setAttribute("id", "items");
 		var makeList = document.createElement("ul");
 		makeDiv.appendChild(makeList);
 		for(var i = 0, j = localStorage.length; i < j; i++){
+			// New safari adds extra garbage to localstorage this lets only our keys of numbers make it to the display
 			if(Number(localStorage.key(i))/1 === Number(localStorage.key(i))){
 				var makeLi = document.createElement("li");
 				makeList.appendChild(makeLi);
@@ -88,14 +103,23 @@ window.addEventListener("DOMContentLoaded", function(){
 					var objText = object[x][0]+ ": "+object[x][1];
 					makeSubLi.innerHTML = objText;
 				}
-			} else{
-				console.log("fail");
 			}
 		}
 		document.body.appendChild(makeDiv);
 		$("items").style.display = "block";
 	}
-
+	// Clears local storage and resets the job #
+	function clearData(){
+		if (localStorage.length === 1 && localStorage.getItem("jobNumber")){
+			alert("Local Storage does not contain any jobs.");
+			return;
+		}
+		localStorage.clear();
+		alert("All jobs deleted from local storage.");
+		jobCount();
+		window.location.reload();
+	}
+	// Toggle form off and on to show Stored data in its place
 	function toggleControl(state){
 		switch(state){
 			case "on":
@@ -134,17 +158,17 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	// Variable defaults
 	var jobTypes = ["--Job Types--", "Banner", "Decal", "Sign", "Custom"];
-	var jobNumCount = 1;
+	var jobNumCount;
 	var rushValue;
 	// Calls the function to create the select box and populates with job types
 	formLists("jobTypes", jobTypes);
-	// Gives a value to our readonly Job # field to start with
-	document.forms[0]["jobnum"].value = jobNumCount;
+	// Function called to set or check Job # read only field value
+	jobCount();
 	// Set Link $ Submit Click Events
 	var displayData = $("displayData");
 	displayData.addEventListener("click", getData);
-	// var clearData = $("clearData");
-	// clearData.addEventListener("click", clearData);
+	var clearStorage = $("clearData");
+	clearStorage.addEventListener("click", clearData);
 	var save = $("submit");
 	save.addEventListener("click", validation);
 });
