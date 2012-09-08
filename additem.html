@@ -13,6 +13,7 @@
 		<meta name="HandheldFriendly" content="True" />
 		<meta name="MobileOptimized" content="320" />
 		<title>Job Order Form</title>
+		<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz'/>
 		<link rel="stylesheet" href="css/styles.css">
 	</head>
 	<body>
@@ -30,23 +31,20 @@
 					<li><label for="phone">Phone: </label><input type="tel" id="phone" name="phone" required aria-required="true" placeholder="xxx-xxx-xxxx"/></li>
 					<li><label for="email">Email: </label><input type="email" id="email" name="email" required aria-required="true" placeholder="abd@abc.com"/></li>
 					<li><label for="orderdate">Order Date: </label><input type="date" min="2012-08-30" max="2015-08-30" id="orderdate" name="orderdate" required aria-required="true" /></li>
-					<li><label for="needbydate">Need By Date: </label><input type="date" id="needbydate" name="needbydate" required aria-required="true"/></li>
-					<li>Rush Order?	
-						<ul>	
-							<li id="radio"><input type="radio" value="Yes" id="yes" name="rush" /><label for="yes">Yes</label></li>
-							<li id="radio"><input type="radio" value="No" id="no" name="rush" /><label for="no">No</label></li>
-						</ul>
-					</li>
+					<li><label for="needbydate">Due Date: </label><input type="date" id="needbydate" name="needbydate" required aria-required="true"/></li>
+					<li id="rush"><label for="rush">Rush Order?</label></li>	
+					<li id="radio"><label for="radio">Yes</label><input type="radio" value="Yes" id="yes" name="rush" class="radio" /></li>
+					<li id="radio"><label for="radio">No</label><input type="radio" value="No" id="no" name="rush" class="radio" /></li>
 				</ul>	
 			</fieldset>	
 			<fieldset>
 				<legend>Job Description</legend>
 				<ul id="descr">
 					<li id="jobTypes"><label for="jobTypes">Job Type:</label></li>
-					<li><label for="custom">Custom Job Details:</label><textarea id="custom" name="custom"></textarea></li>
+					<li id="custom"><label for="custom">Custom Info:</label><textarea name="custom" class="custom"></textarea></li>
 					<li id="number"><label for="qty">Quantity: </label><input type="number" id="qty" name="qty" required aria-required="true" /></li>
-					<li id="number"><label for="production">Est. Production Hours: </label><input type="number" id="production" name="production" required aria-required="true" /></li>
-					<li><label for="design">Est. Design Effort from 1 to 10: </label><input type="range" min="1" max="10" id="design" name="design" /></li>
+					<li id="number"><label for="production">LOE Hours: </label><input type="number" id="production" name="production" required aria-required="true" /></li>
+					<li id="test"><label for="design" id="test1">Estimation of Design Hours 1-10: </label><input type="range" min="1" max="10" id="design" name="design" /></li>
 					<li><input type="hidden" value="true" /></li>
 				</ul>
 			</fieldset>

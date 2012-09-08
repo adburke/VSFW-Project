@@ -6,25 +6,70 @@
 
 body {
 	background-color: #eee;	
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: 'Yanone Kaffeesatz', arial, sans-serif;
 	color: #333;
+	margin:0;
+	padding:0;
+	width: 320px;
+}
+h1, form {
+	margin:0;
+	padding:0;
+}
+form {
+	width:100%;
+}
+fieldset {
+	border:none;
+	margin:0 0 5px 0;
+	padding:0;
+	width: 100%;
+}
+legend {
+	background-color: #000;
+	color: #fff;
+	margin:0 0 10px 0;
+	padding: 0;
+	width: 100%;
+}
+#order, #descr {
+	margin:0;
+	padding:0;
+	margin-left:5px;
 }
 li {
 	list-style: none;
+	height: inherit;
 }
-label{
-	padding-right: 2%;
-	margin-bottom: 10px;
+label {
+	float:left;
+	width: 4em;
+	text-align: left;
+	clear:left;
+	margin: 0 10px 0 0;
+	font-size: 1.5em;
 }
-input{
-	margin-bottom: 15px;
+input, select {
+	margin-bottom: 5px;
+	font-size: 1em;
+	width: 180px;
 }
-#order, #descr {
-	margin-left:-20px;
+textarea {
+	width: 184px;
+	margin-bottom: 5px;
+}
+label[for=radio] {
+	float:none;
+	margin: auto;
+}
+.radio {
+	vertical-align: middle;
+	width: auto;
 }
 #radio {
 	display:inline;
 }
-#number input {
-	width: 80px;
+label#test1, input#design {
+	width:100%;
+	text-align: center;
 }
