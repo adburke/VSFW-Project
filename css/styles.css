@@ -89,6 +89,9 @@ label#design, input#design {
 	text-align: center;
 	margin: 0;
 }
+input#design {
+	margin-top: 3px;
+}
 input#submit {
 	margin: 0 0 2px 70px;
 	width:200px;
