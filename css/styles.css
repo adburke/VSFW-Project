@@ -73,7 +73,7 @@ textarea {
 	width: 184px;
 	margin-bottom: 5px;
 }
-label[for=radio] {
+li#radio label {
 	float:none;
 	margin: auto;
 }
