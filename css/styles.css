@@ -108,6 +108,9 @@ a#clearData {
 a#displayData {
 	margin-right: 5px;
 }
-
+#items {
+	border-bottom: 1px solid #000;
+	font-size: 1.5em;
+}
 
 
