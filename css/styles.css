@@ -84,7 +84,7 @@ li#radio label {
 li#radio {
 	display:inline;
 }
-label#design, input#design {
+label#designLabel, input#design {
 	width:310px;
 	text-align: center;
 	margin: 0;

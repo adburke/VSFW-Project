@@ -87,10 +87,13 @@ window.addEventListener("DOMContentLoaded", function(){
 		makeDiv.setAttribute("id", "items");
 		var makeList = document.createElement("ul");
 		makeDiv.appendChild(makeList);
+		document.body.appendChild(makeDiv);
+		$("items").style.display = "block";
 		for(var i = 0, j = localStorage.length; i < j; i++){
 			// New safari adds extra garbage to localstorage this lets only our keys of numbers make it to the display
 			if(Number(localStorage.key(i))/1 === Number(localStorage.key(i))){
 				var makeLi = document.createElement("li");
+				var linksLi = document.createElement("li");
 				makeList.appendChild(makeLi);
 				var key = localStorage.key(i);
 				var value = localStorage.getItem(key);
@@ -103,11 +106,71 @@ window.addEventListener("DOMContentLoaded", function(){
 					var objText = object[x][0]+ ": "+object[x][1];
 					makeSubLi.innerHTML = objText;
 				};
+				makeSubList.appendChild(linksLi);
+				makeItemLinks(key, linksLi);
 			};
 		};
-		document.body.appendChild(makeDiv);
-		$("items").style.display = "block";
-	}
+	};
+
+	// Make Item Links 
+	// Create the edit and delete links for each object list displayed
+	function makeItemLinks(key, linksLi){
+		var editLink = document.createElement("a");
+		editLink.href = "#";
+		editLink.key = key;
+		var editText = "Edit Job";
+		editLink.addEventListener("click", editItem);
+		editLink.innerHTML = editText;
+		linksLi.appendChild(editLink);
+
+		var breakTag = document.createElement("br");
+		linksLi.appendChild(breakTag);
+
+		var deleteLink = document.createElement("a");
+		deleteLink.href = "#";
+		deleteLink.key = key;
+		var deleteText = "Delete Job";
+		//deleteLink.addEventListener("click", deleteItem);
+		deleteLink.innerHTML = deleteText;
+		linksLi.appendChild(deleteLink);
+
+	};
+
+	function editItem(){
+		// Grab the data from our item from local storage
+		var value = localStorage.getItem(this.key);
+		var jobFormData = JSON.parse(value);
+
+		// Show the form
+		toggleControl("off");
+
+		// Populate the form fields with current localstorage values
+		$("jobnum").value = jobFormData.jobNum[1];
+		$("company").value = jobFormData.company[1];
+		$("address").value = jobFormData.address[1];
+		$("city").value = jobFormData.city[1];
+		$("state").value = jobFormData.state[1];
+		$("zipcode").value = jobFormData.zipcode[1];
+		$("phone").value = jobFormData.phone[1];
+		$("email").value = jobFormData.email[1];
+		$("orderdate").value = jobFormData.oDate[1];
+		$("needbydate").value = jobFormData.needDate[1];
+		var radios = document.forms[0].rush;
+		for(var i=0; i<radios.length; i++){
+			if(radios[i].value === "Yes" && jobFormData.rushOrder[1] === "Yes" ){
+				radios[i].setAttribute("checked", "checked");
+			} else if(radios[i].value === "No" && jobFormData.rushOrder[1] === "No"){
+				radios[i].setAttribute("checked", "checked");
+			};
+		};
+		$("groups").value = jobFormData.jobType[1];
+		$("custom").value = jobFormData.customInfo[1];
+		$("qty").value = jobFormData.quantity[1];
+		$("production").value = jobFormData.prodHours[1];
+		$("design").value = jobFormData.designEff[1];
+
+	};
+
 	// Clears local storage and resets the job #
 	function clearData(){
 		if (localStorage.length === 1 && localStorage.getItem("jobNumber")){
@@ -152,7 +215,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				alert("Required Fields Missing");
 				return;
 			};
-		;}
+		};
 		saveData();
 	};
 
