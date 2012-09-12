@@ -22,6 +22,7 @@
 			<form action="#" method="post" id="jobForm">
 				<fieldset>
 					<legend>Order Info</legend>
+					<ul id="errors"></ul>
 					<ul id="order">
 						<li id="jobum"><label for="jobnum">Job #: </label><input type="text" class="rounded" id="jobnum" name="jobnum" readonly/></li>
 						<li><label for="company">Company: </label><input type="text" class="rounded" id="company" name="customer" required aria-required="true" placeholder="Company Name"/></li>
@@ -31,8 +32,8 @@
 						<li><label for="zipcode">Zip Code: </label><input type="number" class="rounded" id="zipcode" name="zipcode" required aria-required="true" placeholder="xxxxx"/></li>
 						<li><label for="phone">Phone: </label><input type="tel" class="rounded" id="phone" name="phone" required aria-required="true" placeholder="xxx-xxx-xxxx"/></li>
 						<li><label for="email">Email: </label><input type="email" class="rounded" id="email" name="email" required aria-required="true" placeholder="abd@abc.com"/></li>
-						<li><label for="orderdate">Order Date: </label><input type="date" class="rounded" min="2012-08-30" max="2015-08-30" id="orderdate" name="orderdate" required aria-required="true" /></li>
-						<li><label for="needbydate">Due Date: </label><input type="date" class="rounded" id="needbydate" name="needbydate" required aria-required="true"/></li>
+						<li><label for="orderdate">Order Date: </label><input type="date" class="rounded" min="2012-08-30" max="2015-08-30" id="orderdate" name="orderdate" required aria-required="true" placeholder="yyyy-mm-dd"/></li>
+						<li><label for="needbydate">Due Date: </label><input type="date" class="rounded" id="needbydate" name="needbydate" required aria-required="true" placeholder="yyyy-mm-dd"/></li>
 						<li id="rush"><label for="rush">Rush Order?</label></li>	
 						<li id="radio"><label for="yes">Yes</label><input type="radio" value="Yes" id="yes" name="rush" class="radio" /></li>
 						<li id="radio"><label for="no">No</label><input type="radio" value="No" id="no" name="rush" class="radio" /></li>
