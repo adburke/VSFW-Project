@@ -1,4 +1,4 @@
-/* 	Activity 2
+/* 	Activity 3
 	VFW 1208
  	Aaron Burke
 */
@@ -10,7 +10,7 @@ div#wrapper{
 
 body {
 	background-color: #eee;	
-	font-family: 'Yanone Kaffeesatz', arial, sans-serif;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
 	color: #333;
 	margin:0;
 	padding:0;
@@ -108,12 +108,11 @@ a#clearData {
 a#displayData {
 	margin-right: 5px;
 }
-#items {
-	border-bottom: 1px solid #000;
-	font-size: 1.5em;
-}
+
 #errors {
 	list-style: none;
 	color:#ff0000;
+	margin:0;
+	padding:0;
 }
 
