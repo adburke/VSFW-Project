@@ -1,4 +1,4 @@
-// Activity 2
+// Activity 3
 // VFW 1208
 // Aaron Burke
 
@@ -57,7 +57,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		} else {
 			id = key;
 			console.log("found key");
-		}
+		};
 		// Get Radio button status
 		getSelectedRadio();
 		// Get all of the form data and create an object out of it
@@ -84,7 +84,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		alert("Job #: " + jobNumCount + " Saved");
 		} else {
 			alert("Job #: " + key + " Saved");
-		}
+		};
 		jobCount();
 
 	};
@@ -190,7 +190,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		// This allows us to save over the data we are editing instead of creating a new object
 		editSubmit.key = this.key;
 		editSubmit.addEventListener("click", validation);
-		// This stopped the duplication of the Items div after using the Edit Button and then selecting display 
+		// This stopped the duplication of the Items div after using the Edit Button and then selecting display
 		var div = document.getElementById("items");
 		div.parentNode.removeChild(div);
 	};
@@ -203,8 +203,8 @@ window.addEventListener("DOMContentLoaded", function(){
 			window.location.reload();
 		} else{
 			alert("Job was NOT deleted.");
-		}
-	}
+		};
+	};
 	// Clears local storage and resets the job #
 	function clearData(){
 		if (localStorage.length === 1 && localStorage.getItem("jobNumber")){
@@ -279,46 +279,46 @@ window.addEventListener("DOMContentLoaded", function(){
 			var companyError = "Please enter a company name.";
 			getCompany.style.border = "1px solid red";
 			messageAry.push(companyError);
-		}
+		};
 		// Address validation
 		if (getAddress.value === ""){
 			var addressError = "Please enter an address.";
 			getAddress.style.border = "1px solid red";
 			messageAry.push(addressError);
-		}
+		};
 		// City validation
 		if (getCity.value === ""){
 			var cityError = "Please enter a city.";
 			getCity.style.border = "1px solid red";
 			messageAry.push(cityError);
-		}
+		};
 		// State validation
 		if (getState.value === ""){
 			var stateError = "Please enter a state.";
 			getState.style.border = "1px solid red";
 			messageAry.push(stateError);
-		}
+		};
 		// Zip code validation
 		var reZip = /\d{5}/;
 		if(!(reZip.test(getZip.value))){
 			var zipError = "Please enter a zip code.";
 			getZip.style.border = "1px solid red";
 			messageAry.push(zipError);
-		}
+		};
 		// Phone # validation
 		var rePhone= /\d{3}-\d{3}-\d{4}/;
 		if(!(rePhone.test(getPhone.value))){
 			var phoneError = "Please enter a valid phone number.";
 			getPhone.style.border = "1px solid red";
 			messageAry.push(phoneError);
-		}
+		};
 		// Email validation
 		var reEmail = /^\w+@[\w.\-]+\.[A-Za-z]{2,3}$/;
 		if(!(reEmail.test(getEmail.value))){
 			var emailError = "Please enter a valid email address.";
 			getEmail.style.border = "1px solid red";
 			messageAry.push(emailError);
-		}
+		};
 		// Order date validation
 		var reDate = /^(19|20)\d\d([\-.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/;
 		var orderDateAry = (getOrderDate.value).split("-");
@@ -338,7 +338,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			orderDateError = "Invalid - Febuary 29th on a non-leap year.";
 			getOrderDate.style.border = "1px solid red";
 			messageAry.push(orderDateError);
-		}
+		};
 		// Due date validation
 		var needDateAry = (getNeedByDate.value).split("-");
 		if(!(reDate.test(getNeedByDate.value))){
@@ -357,19 +357,19 @@ window.addEventListener("DOMContentLoaded", function(){
 			needByDateError = "Invalid - Febuary 29th on a non-leap year.";
 			getNeedByDate.style.border = "1px solid red";
 			messageAry.push(needByDateError);
-		}
+		};
 		// Job type validation
 		if(getJobTypeList.value === "--Job Types--"){
 			var JobTypeListError = "Please choose a job type.";
 			getJobTypeList.style.border = "1px solid red";
 			messageAry.push(JobTypeListError);
-		}
+		};
 		// If job type custom make custom description required
 		if(getJobTypeList.value === "Custom" && getCustom.value === ""){
 			var customError = "Please describe the custom job.";
 			getCustom.style.border = "1px solid red";
 			messageAry.push(customError);
-		}
+		};
 		// Quantity number validation
 		if (getQty.value === ""){
 			var qtyError = "Please enter a quantity.";
@@ -379,7 +379,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			var qtyError = "Please enter a valid quantity number.";
 			getQty.style.border = "1px solid red";
 			messageAry.push(qtyError);
-		}
+		};
 		// LOE time number validation
 		if (getProduction.value === ""){
 			var productionError = "Please enter a LOE amount.";
@@ -389,7 +389,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			var productionError = "Please enter a valid LOE number.";
 			getProduction.style.border = "1px solid red";
 			messageAry.push(productionError);
-		}
+		};
 		if(messageAry.length >= 1){
 			for(var i=0, j = messageAry.length; i<j; i++){
 				var txt = document.createElement("li");
@@ -401,7 +401,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		} else {
 			// If everything validates run storeData(). Send storeData() the key passed down from editItem() via the editSubmit button
 			saveData(this.key);
-		}
+		};
 	};
 
 	// Variable defaults
