@@ -91,7 +91,8 @@ window.addEventListener("DOMContentLoaded", function(){
 	// Retrieve and display data from localstorage
 	function getData(){
 		if (localStorage.length === 1 && localStorage.getItem("jobNumber")){
-			alert("Local Storage does not contain any jobs.");
+			alert("Local Storage does not contain any jobs. Adding job test data.");
+			autoFillData();
 			return;
 		};
 		toggleControl("on");
@@ -124,10 +125,19 @@ window.addEventListener("DOMContentLoaded", function(){
 		};
 	};
 
+	function autoFillData(){
+		// Entering premade data from json.js into local storage for testing
+		// json is JSON var from json.js
+		for(var n in json){
+			var id = n;
+			localStorage.setItem(id, JSON.stringify(json[n]));
+		}
+	}
 	// Make Item Links
 	// Create the edit and delete links for each object list displayed
 	function makeItemLinks(key, linksLi){
 		var editLink = document.createElement("a");
+		editLink.setAttribute("id", "edit");
 		editLink.href = "#";
 		editLink.key = key;
 		var editText = "Edit Job";
@@ -135,10 +145,11 @@ window.addEventListener("DOMContentLoaded", function(){
 		editLink.innerHTML = editText;
 		linksLi.appendChild(editLink);
 
-		var breakTag = document.createElement("br");
-		linksLi.appendChild(breakTag);
+		// var breakTag = document.createElement("br");
+		// linksLi.appendChild(breakTag);
 
 		var deleteLink = document.createElement("a");
+		deleteLink.setAttribute("id", "delete");
 		deleteLink.href = "#";
 		deleteLink.key = key;
 		var deleteText = "Delete Job";
@@ -191,8 +202,12 @@ window.addEventListener("DOMContentLoaded", function(){
 		editSubmit.key = this.key;
 		editSubmit.addEventListener("click", validation);
 		// This stopped the duplication of the Items div after using the Edit Button and then selecting display
-		var div = document.getElementById("items");
-		div.parentNode.removeChild(div);
+		var jobListDiv = document.getElementById("items");
+		jobListDiv.parentNode.removeChild(jobListDiv);
+		// Clear off any error list generated before hiting display and edit as well as red box borders
+		var errorListDiv = document.getElementById("errors");
+		errorListDiv.parentNode.removeChild(errorListDiv);
+		inputBoxReset();
 	};
 	// Delete function by key
 	function deleteItem(){
@@ -238,7 +253,24 @@ window.addEventListener("DOMContentLoaded", function(){
 				return false;
 		};
 	};
-	// Validate that all required form fields at least have a value *no error checking yet*
+	// Reset input box outlines from red to black
+	function inputBoxReset(){
+		$("company").style.border = "1px solid black";
+		$("address").style.border = "1px solid black";
+		$("city").style.border = "1px solid black";
+		$("state").style.border = "1px solid black";
+		$("zipcode").style.border = "1px solid black";
+		$("phone").style.border = "1px solid black";
+		$("email").style.border = "1px solid black";
+		$("orderdate").style.border = "1px solid black";
+		$("needbydate").style.border = "1px solid black";
+		$("jobTypeList").style.border = "1px solid black";
+		$("custom").style.border = "1px solid black";
+		$("qty").style.border = "1px solid black";
+		$("production").style.border = "1px solid black";
+
+	};
+	// Validate that all required form fields at least have a value *no error checking yet*	
 	function validation(e){
 		var getCompany = $("company");
 		var getAddress = $("address");
@@ -257,19 +289,8 @@ window.addEventListener("DOMContentLoaded", function(){
 		// Reset Error Messages
 		errorMsg.innerHTML = "";
 
-		getCompany.style.border = "1px solid black";
-		getAddress.style.border = "1px solid black";
-		getCity.style.border = "1px solid black";
-		getState.style.border = "1px solid black";
-		getZip.style.border = "1px solid black";
-		getPhone.style.border = "1px solid black";
-		getEmail.style.border = "1px solid black";
-		getOrderDate.style.border = "1px solid black";
-		getNeedByDate.style.border = "1px solid black";
-		getJobTypeList.style.border = "1px solid black";
-		getCustom.style.border = "1px solid black";
-		getQty.style.border = "1px solid black";
-		getProduction.style.border = "1px solid black";
+		// Reset input box borders to black
+		inputBoxReset();
 
 		// Get Error Messages
 		var messageAry = [];
