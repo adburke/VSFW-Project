@@ -113,6 +113,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				var object = JSON.parse(value);
 				var makeSubList = document.createElement("ul");
 				makeLi.appendChild(makeSubList);
+				getImage(makeSubList, object.jobType[1]);
 				for(var x in object){
 					var makeSubLi = document.createElement("li");
 					makeSubList.appendChild(makeSubLi);
@@ -124,7 +125,15 @@ window.addEventListener("DOMContentLoaded", function(){
 			};
 		};
 	};
-
+	// Get image for the category displayed
+	function getImage(makeSubList, imgName){
+		var imageLi = document.createElement("li");
+		makeSubList.appendChild(imageLi);
+		var newImg = document.createElement("img");
+		var setSrc = newImg.setAttribute("src", "images/"+ imgName +".png");
+		imageLi.appendChild(newImg);
+	}
+	// Populate local storage with json data
 	function autoFillData(){
 		// Entering premade data from json.js into local storage for testing
 		// json is JSON var from json.js
@@ -322,7 +331,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		// Zip code validation
 		var reZip = /\d{5}/;
 		if(!(reZip.test(getZip.value))){
-			var zipError = "Please enter a zip code.";
+			var zipError = "Please enter a valid zip code.";
 			getZip.style.border = "1px solid red";
 			messageAry.push(zipError);
 		};
