@@ -117,9 +117,8 @@ label#designLabel, input#design {
 input#design {
 	margin-top: 3px;
 }
-input#submit {
+input#submit, input#searchBtn {
 	margin: 0 0 2px 70px;
-	width:200px;
 	font-size: 1.6em;
 	font-family: 'Yanone Kaffeesatz', arial, sans-serif;
 }
@@ -128,19 +127,21 @@ a {
 	font-family: 'Yanone Kaffeesatz', arial, sans-serif;
 }
 a#clearData {
-	margin: 5px 5px 0 80px;
+	margin: 5px 5px 0 40px;
 }
 a#displayData {
 	margin-right: 5px;
 }
-
+a#newJob {
+	margin-right: 5px;
+}
 #errors {
 	list-style: none;
 	color:#ff0000;
 	margin:0;
 	padding:0;
 }
-#items {
+#items, #searchItems {
 	width: 300px;
 	margin: 0 auto;
 	background-color: #fff;
@@ -170,4 +171,13 @@ a#displayData {
 #items ul li ul li img {
 	margin-left: -15px;
 	padding: 0;
+}
+input#clearData, input#displayData, input#searchDisplay, input#newJob {
+	margin: 0;
+	padding:0;
+	font-size: 1.2em;
+	font-family: 'Yanone Kaffeesatz', arial, sans-serif;
+}
+form#search{
+	margin-left: -6px;
 }

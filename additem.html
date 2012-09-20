@@ -19,6 +19,24 @@
 	<body>
 		<div id="wrapper">
 			<h1>JOB ORDER FORM</h1>
+			<!-- <input type="button" value="Clear Data" id="clearData" />
+			<input type="button" value="Display Data" id="displayData" />
+			<a href="additem.html" id="newJob" style="display:none;"><input type="button" value="New Job" id="newJob" /></a> -->
+			<a href="#" id="clearData">Clear Data</a>
+			<a href="#" id="displayData">Display Data</a>
+			<a href="additem.html" id="newJob" style="display:none;">New Job</a>
+			<a href="#" id="searchDisplay">Search</a>
+			<!-- <input type="button" value="Search" id="searchDisplay" /> -->
+			<form action="#" method="post" id="search" style="display:none;">
+				<fieldset id="search">
+					<legend>Search Local Storage</legend>
+					<ul id="descr">
+						<li id="jobTypesSearch"><label for="jobTypesSearch">Job Type:</label></li>
+						<li><label for="searchTerm">Search Term:</label><input type="text" id="searchTerm" /></li>
+					</ul>
+					<input type="button" value="Search" id="searchBtn" />
+				</fieldset>
+			</form>
 			<form action="#" method="post" id="jobForm">
 				<fieldset>
 					<legend>Order Info</legend>
@@ -52,9 +70,9 @@
 				</fieldset>
 				<input type="submit" value="Save Job" id="submit" />	
 			</form>
-			<a href="#" id="clearData">Clear Data</a>
+			<!-- <a href="#" id="clearData">Clear Data</a>
 			<a href="#" id="displayData">Display Data</a>
-			<a href="additem.html" id="newJob" style="display:none;">New Job</a>
+			<a href="additem.html" id="newJob" style="display:none;">New Job</a> -->
 			<script type="text/javascript" src="js/json.js"></script>
 			<script type="text/javascript" src="js/main.js"></script>
 		</div>

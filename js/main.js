@@ -29,16 +29,16 @@ window.addEventListener("DOMContentLoaded", function(){
 	function jobCount(){
 		if (localStorage.getItem("jobNumber")){
 			jobNumCount = localStorage["jobNumber"];
-			document.forms[0]["jobnum"].value = Number(jobNumCount);
+			document.forms[1]["jobnum"].value = Number(jobNumCount);
 		} else {
 			jobNumCount = 1000;
 			localStorage.setItem("jobNumber", jobNumCount.toString());
-			document.forms[0]["jobnum"].value = jobNumCount;
+			document.forms[1]["jobnum"].value = jobNumCount;
 		};
 	};
 	// Check to see what radio button is selected
 	function getSelectedRadio(){
-		var radios = document.forms[0].rush;
+		var radios = document.forms[1].rush;
 		for (var i =0; i < radios.length; i++){
 			if (radios[i].checked){
 				rushValue = radios[i].value;
@@ -88,14 +88,22 @@ window.addEventListener("DOMContentLoaded", function(){
 		jobCount();
 
 	};
-	// Retrieve and display data from localstorage
-	function getData(){
+	// Retrieve and display data from localstorage **Modified to take in an argument from the search() to display results from the search only
+	function getData(searchArray){
 		if (localStorage.length === 1 && localStorage.getItem("jobNumber")){
 			alert("Local Storage does not contain any jobs. Adding job test data.");
 			autoFillData();
 			return;
 		};
-		toggleControl("on");
+		if(document.getElementById("items")){
+			var jobListDiv = document.getElementById("items");
+			jobListDiv.parentNode.removeChild(jobListDiv);
+		};
+		if(searchArray[0]){
+			toggleControl("showSearchData");
+		} else {
+			toggleControl("showData");
+		};
 		makeDiv = document.createElement("div");
 		makeDiv.setAttribute("id", "items");
 		var makeList = document.createElement("ul");
@@ -103,8 +111,31 @@ window.addEventListener("DOMContentLoaded", function(){
 		document.body.appendChild(makeDiv);
 		$("items").style.display = "block";
 		for(var i = 0, j = localStorage.length; i < j; i++){
-			// New safari adds extra garbage to localstorage this lets only our keys of numbers make it to the display
-			if(Number(localStorage.key(i))/1 === Number(localStorage.key(i))){
+			// Modified section to just return search results
+			if(searchArray[0] && Number(localStorage.key(i))/1 === Number(localStorage.key(i))){
+				var makeLi = document.createElement("li");
+				var linksLi = document.createElement("li");
+				makeList.appendChild(makeLi);
+				var key = localStorage.key(i);
+				var value = localStorage.getItem(key);
+				var object = JSON.parse(value);
+				var makeSubList = document.createElement("ul");
+				makeLi.appendChild(makeSubList);
+				for(var n = 0, m = searchArray.length; n < m; n++){ 
+					if(searchArray[n] === key){
+						getImage(makeSubList, object.jobType[1]);
+						for(var x in object){
+							var makeSubLi = document.createElement("li");
+							makeSubList.appendChild(makeSubLi);
+							var objText = object[x][0]+ ": "+object[x][1];
+							makeSubLi.innerHTML = objText;
+						};
+						makeSubList.appendChild(linksLi);
+						makeItemLinks(key, linksLi);
+					};
+				};
+			// Original getData path to display all local storage
+			} else if(Number(localStorage.key(i))/1 === Number(localStorage.key(i))){
 				var makeLi = document.createElement("li");
 				var linksLi = document.createElement("li");
 				makeList.appendChild(makeLi);
@@ -132,7 +163,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		var newImg = document.createElement("img");
 		var setSrc = newImg.setAttribute("src", "images/"+ imgName +".png");
 		imageLi.appendChild(newImg);
-	}
+	};
 	// Populate local storage with json data
 	function autoFillData(){
 		// Entering premade data from json.js into local storage for testing
@@ -140,8 +171,8 @@ window.addEventListener("DOMContentLoaded", function(){
 		for(var n in json){
 			var id = n;
 			localStorage.setItem(id, JSON.stringify(json[n]));
-		}
-	}
+		};
+	};
 	// Make Item Links
 	// Create the edit and delete links for each object list displayed
 	function makeItemLinks(key, linksLi){
@@ -174,7 +205,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		var jobFormData = JSON.parse(value);
 		console.log(value);
 		// Show the form
-		toggleControl("off");
+		toggleControl("showForm");
 
 		// Populate the form fields with current localstorage values
 		$("jobnum").value = jobFormData.jobNum[1];
@@ -187,7 +218,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		$("email").value = jobFormData.email[1];
 		$("orderdate").value = jobFormData.oDate[1];
 		$("needbydate").value = jobFormData.needDate[1];
-		var radios = document.forms[0].rush;
+		var radios = document.forms[1].rush;
 		for(var i=0; i<radios.length; i++){
 			if(radios[i].value === "Yes" && jobFormData.rushOrder[1] === "Yes" ){
 				radios[i].setAttribute("checked", "checked");
@@ -243,21 +274,45 @@ window.addEventListener("DOMContentLoaded", function(){
 	// Toggle form off and on to show Stored data in its place
 	function toggleControl(state){
 		switch(state){
-			case "on":
+			case "showData":
 				$("jobForm").style.display = "none";
 				$("clearData").style.display = "inline";
 				$("displayData").style.display = "none";
 				$("newJob").style.display = "inline";
+				$("searchDisplay").style.display = "inline";
+				$("search").style.display = "none";
 				break;
 
-			case "off":
+			case "showForm":
 				$("jobForm").style.display = "block";
+				$("search").style.display = "none";
 				$("clearData").style.display = "inline";
 				$("displayData").style.display = "inline";
 				$("newJob").style.display = "none";
 				$("items").style.display = "none";
 				break;
 
+			case "showSearch":
+				$("jobForm").style.display = "none";
+				$("search").style.display = "block";
+				$("clearData").style.display = "inline";
+				$("displayData").style.display = "inline";
+				$("newJob").style.display = "inline";
+				$("searchDisplay").style.display = "none";
+				if($("items")){
+					$("items").style.display = "none";
+				};
+				break;
+
+			case "showSearchData":
+				$("jobForm").style.display = "none";
+				$("search").style.display = "block";
+				$("clearData").style.display = "inline";
+				$("displayData").style.display = "inline";
+				$("newJob").style.display = "inline";
+				$("searchDisplay").style.display = "none";
+				break;
+			
 			default:
 				return false;
 		};
@@ -433,6 +488,76 @@ window.addEventListener("DOMContentLoaded", function(){
 			saveData(this.key);
 		};
 	};
+	// Toggle on and off search via the search button at top of form
+	function toggleSearch(){
+		toggleControl("showSearch");
+	}
+	// Function to search through local storage
+	function search(){
+		if(document.getElementById("items")){
+			var jobListDiv = document.getElementById("items");
+			jobListDiv.parentNode.removeChild(jobListDiv);
+		};
+		toggleControl("showSearch");
+
+		var getJobTypeSearch = $("jobTypeSearch").value;
+		var searchTerm = $("searchTerm").value;
+		var searchArray = [];
+
+		if(getJobTypeSearch != "--Job Types--" && searchTerm === ""){
+			for(var i = 0, j = localStorage.length; i < j; i++){
+				if(Number(localStorage.key(i))/1 === Number(localStorage.key(i))){
+					var key = localStorage.key(i);
+					var value = localStorage.getItem(key);
+					var object = JSON.parse(value);
+					if(getJobTypeSearch === object.jobType[1]){
+						searchArray.push(key);
+						// for(n in object){
+						// 	console.log(object[n][1]);
+						// };
+					};
+				};
+			};
+		};
+		if(getJobTypeSearch === "--Job Types--" && searchTerm != ""){
+			for(var i = 0, j = localStorage.length; i < j; i++){
+				if(Number(localStorage.key(i))/1 === Number(localStorage.key(i))){
+					var key = localStorage.key(i);
+					var value = localStorage.getItem(key);
+					var object = JSON.parse(value);
+					for(n in object){
+						if(searchTerm === object[n][1]){
+							searchArray.push(key);
+							// for(x in object){
+							// 	console.log(object[x][1]);
+							// };
+						};
+					};
+				};
+			};
+		};
+		if(getJobTypeSearch != "--Job Types--" && searchTerm != ""){
+			for(var i = 0, j = localStorage.length; i < j; i++){
+				if(Number(localStorage.key(i))/1 === Number(localStorage.key(i))){
+					var key = localStorage.key(i);
+					var value = localStorage.getItem(key);
+					var object = JSON.parse(value);
+					for(n in object){
+						if(searchTerm === object[n][1] && getJobTypeSearch === object.jobType[1]){
+							searchArray.push(key);
+							// for(x in object){
+							// 	console.log(object[x][1]);
+							// };
+						};
+					};
+				};
+			};
+		};
+		if(searchArray[0]){
+			console.log(searchArray);
+			getData(searchArray);
+		};	
+	};
 
 	// Variable defaults
 	var jobTypes = ["--Job Types--", "Banner", "Decal", "Sign", "Custom"];
@@ -441,6 +566,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	var errorMsg = $("errors");
 	// Calls the function to create the select box and populates with job types
 	formLists("jobTypes", jobTypes, "jobTypeList");
+	formLists("jobTypesSearch", jobTypes, "jobTypeSearch");
 	// Function called to set or check Job # read only field value
 	jobCount();
 	// Set Link $ Submit Click Events
@@ -450,4 +576,10 @@ window.addEventListener("DOMContentLoaded", function(){
 	clearStorage.addEventListener("click", clearData);
 	var save = $("submit");
 	save.addEventListener("click", validation);
+	var searchDisplay = $("searchDisplay");
+	searchDisplay.addEventListener("click", toggleSearch);
+	var searchTest = $("searchBtn");
+	searchTest.addEventListener("click", search);
+
+
 });
